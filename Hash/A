@@ -1,0 +1,14 @@
+def hashbrown(x, p, string):
+    res = 0
+    for i in range(len(string)):
+        res = (res + ord(string[i]) * x ** (len(string) -1 -i)) % p
+    return res
+def urnguk(x, p, g: str):
+    g_hash = 0
+    for symbol in g:
+        g_hash *= x
+        g_hash += ord(symbol)
+        g_hash %= p
+xp = list(map(int, input().split()))
+txt = input()
+print(hashbrown(xp[0], xp[1], txt))
