@@ -9,7 +9,7 @@ def insert(table, key, value):
     kh = h(key)
     number = kh % 10
     if table[number]:
-        for j in range(len([table[number]])):
+        for j in range(len(table[number])):
             if table[number][j][1] == key:
                 table[number][j][2] = value
                 break
