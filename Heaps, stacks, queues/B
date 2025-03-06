@@ -1,0 +1,22 @@
+syms = list(map(lambda x: int(x) if x.lstrip('-').isdigit() else x, input().split()))
+depot = []
+for sym in syms:
+    if sym == '#':
+        if depot:
+            depot = [sum(depot)]
+            continue
+        else:
+            print(float(0))
+            break
+    if sym == '%':
+        if len(depot) > 1:
+            depot.append(depot.pop() * depot.pop() /100)
+            continue
+        else:
+            print(float(0))
+            break
+    depot.append(sym)
+else:
+    print(float(depot[-1]))
+    
+        

@@ -1,0 +1,20 @@
+arr = []
+for i in iter(input, ''): 
+    arr.extend(i.split()) 
+
+d = {}
+for el in arr:
+    if el in d:
+        d[el] += 1
+    else:
+        d[el] = 1 
+res = [(key, value) for key, value in d.items()]
+
+res = sorted(res, key=lambda x: x[1], reverse=True)
+
+k = int(input())
+if k < len(d) - 1 and k > 0:
+    for i in range(k):
+        print(res[i])
+else:
+    print('лол')

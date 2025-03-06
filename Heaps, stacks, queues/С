@@ -1,0 +1,20 @@
+#Обратная польская нотация
+stack = []
+for token in iter(input, '='):
+    if token.lstrip('-').isdigit():  # Проверяем, является ли токен числом
+        stack.append(int(token))  # Добавляем число в стек
+    else:
+        # Извлекаем два верхних элемента из стека
+        b = stack.pop()
+        a = stack.pop()
+        # Выполняем операцию и добавляем результат в стек
+        if token == '+':
+            stack.append(a + b)
+        elif token == '-':
+            stack.append(a - b)
+        elif token == '*':
+            stack.append(a * b)
+
+# Результат — единственный элемент в стеке
+print(stack[0])
+

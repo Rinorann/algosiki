@@ -1,0 +1,17 @@
+cards = input().split()
+depot = []
+res = 0
+for card in cards:
+    if depot:
+        top = depot.pop()
+        if card[0] == top[0] and abs(int(card[1]) - int(top[1])) <2:
+            res += 2
+            if len(depot) > 2:
+                if depot[0][0] == depot[-1][0]:
+                    res += 2
+        else:
+            depot.append(card)
+    else:
+        depot.append(card)
+print(res)
+
