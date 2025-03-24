@@ -1,0 +1,54 @@
+def read_list(n, m, p = 1):
+    adj_list = [[] for _ in range(n)]
+    if p:
+        for i in range(m):
+            v, u = map(int, input().split())
+            adj_list[v].append(u)
+    else:
+        for i in range(m):
+            u, v = map(int, input().split())
+            adj_list[v].append(u)
+    return adj_list
+def acycle(adj_list, n):
+    grey = set()
+    black = set()
+    cycle = []
+
+    def isAcyclic(cur_node):
+        nonlocal cycle
+        grey.add(cur_node)
+        for neigh in adj_list[cur_node]:
+            if neigh in grey:
+                cycle.append(neigh)
+                cycle.append(cur_node)
+                return True
+            if neigh not in black:
+                if isAcyclic(neigh):
+                    if cycle[0] != cycle[-1]:
+                        cycle.append(cur_node)
+                    return True
+        grey.remove(cur_node)
+        black.add(cur_node)
+        return False
+
+    for node in range(n):
+        if node not in black and not cycle:
+            isAcyclic(node)
+            if cycle:
+                cycle.reverse() 
+                return cycle
+    return []
+n, m = map(int, input().split())
+adj_list = read_list(n, m)
+res = acycle(adj_list, n)
+
+if not res:
+    print("YES")
+else:
+    res.pop()
+    print(*res)
+        
+                    
+
+
+

@@ -1,0 +1,9 @@
+n= int(input())
+def isSymmetrical(n):
+    matrix  = [list(map(int, input().split())) for _ in range(n)]
+    for i in range(n):
+        for j in range(i, n):
+            if matrix[i][j] != matrix[j][i]:
+                return 'NO'
+    return 'YES'
+print(isSymmetrical(n))
