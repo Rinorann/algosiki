@@ -1,0 +1,11 @@
+from collections import deque
+seq = list(map(int, input().split()))
+hier = list(map(int, input().split()))
+deq = deque()
+for el in seq:
+    med = deque()
+    med.append(el)
+    for subel in hier[hier.index(el):-1:-1]:
+        med.appendleft(subel)
+    deq.append(med)
+print(*deq)
