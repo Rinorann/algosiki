@@ -1,0 +1,19 @@
+n, m = map(int, input().split())
+def read_list(n, m):
+    adj_list = [[] for _ in range(n)]
+    for i in range(m):
+        u , v = map(int, input().split())
+        adj_list[u].append(v)
+        adj_list[v].append(u)
+    return adj_list
+def bfs(start, adj_list, visited = None, cycle = None):
+    if visited ==None:
+        visited = set()
+    if cycle == None:
+        cycle = []
+    visited.add(start)
+    queue = [start]
+    while queue:
+        curr_node = queue.pop(0)
+        for adj_node in adj_list[curr_node]
+def min_cycle(adj_list)

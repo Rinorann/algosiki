@@ -12,10 +12,12 @@ def dfs(cur_pos, adj_list, used = None, track = None):
         track = []
     used.add(cur_pos)
     for neigh in adj_list[cur_pos]:
-        if neigh not in used:
-            dfs(neigh, adj_list, used, track)
-        elif neigh in used:
+        if neigh in used:
             return False
+        if neigh not in used:
+            if not dfs()
+            dfs(neigh, adj_list, used, track)
+        
     track.append(cur_pos)
     return track
 def top_sort(adj_list, used = None):

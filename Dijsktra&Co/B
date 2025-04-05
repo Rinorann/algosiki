@@ -1,0 +1,25 @@
+def read_edge(m):
+    edge_list = []
+    for i in range(m):
+        u, v, w = map(int, input().split())
+        edge_list.append((u, v, w))
+    return edge_list
+def FordBellman(edge_list, N, start_node):
+    dist = [float("inf") for i in range(N)]
+    dist[start_node] = 0
+    correct = [True for i in range(N)]
+    for i in range(N-1):
+        for j in range(len(edge_list)):
+            s,f,w = edge_list[j]
+            if dist[f]>dist[s] + w:
+                dist[f] = dist[s] + w
+    for i in range(N):
+        for j in range(len(edge_list)):
+            s,f,w = edge_list[j]
+            if dist[f]>dist[s] + w:
+                dist[f] = dist[s] + w
+                correct[f] = False
+    return dist, correct
+n, m, s = map(int, input().split())
+edge_list = read_edge(m)
+print(FordBellman(edge_list, n, s))
