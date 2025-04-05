@@ -1,1 +1,34 @@
-def top_sort():
+n, m = map(int, input().split())
+def read_list(n, m):
+    adj_list = [[] for _ in range(n)]
+    for i in range(m):
+        u , v = map(int, input().split())
+        adj_list[u].append(v)
+    return adj_list
+def dfs(cur_pos, adj_list, used = None, track = None):
+    if used == None:
+        used = set()
+    if track == None:
+        track = []
+    used.add(cur_pos)
+    for neigh in adj_list[cur_pos]:
+        if neigh not in used:
+            dfs(neigh, adj_list, used, track)
+        elif neigh in used:
+            return False
+    track.append(cur_pos)
+    return track
+def top_sort(adj_list, used = None):
+    res = []
+    if used == None:
+        used = set()
+    for i in range(len(adj_list)):
+        if i not in used:
+            track = dfs(i, adj_list,used)
+            if track == False:
+                return 'NO'
+            else:
+                res += track
+    return res
+adj_list = read_list(n, m)
+print(top_sort(adj_list))

@@ -1,0 +1,23 @@
+n, m, start, finish = map(int, input().split())
+def read_list(n, m):
+    adj_list = [[] for _ in range(n)]
+    for i in range(m):
+        u , v = map(int, input().split())
+        adj_list[u].append(v)
+        adj_list[v].append(u)
+    return adj_list
+def BFS_dist(start_node, adj_list, distances=None):
+    if distances is None:
+        distances = [float("inf") for i in range(len(adj_list))]
+    distances[start_node] = 0
+    queue = [start_node]
+    while queue:
+        curr_node = queue.pop(0)
+        for adj_node in adj_list[curr_node]:
+            if distances[adj_node] == float("inf"):
+                distances[adj_node] = distances[curr_node] + 1
+                queue.append(adj_node)
+    return distances
+adj_list = read_list(n ,m)
+distances = BFS_dist(start, adj_list)
+print(distances[finish])

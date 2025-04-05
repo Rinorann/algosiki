@@ -1,0 +1,30 @@
+n, m = map(int, input().split())
+def read_list(n, m):
+    adj_list = [[] for _ in range(n)]
+    for i in range(m):
+        u , v = map(int, input().split())
+        adj_list[u].append(v)
+        adj_list[v].append(u)
+    return adj_list
+def ostov(start, adj_list, visited = None, spanning_tree = None):
+    if visited == None:
+        visited = set()
+    if spanning_tree == None:
+        spanning_tree = []
+    visited.add(start)
+    queue = [start]
+    while queue:
+        curr_node = queue.pop(0)
+        for adj_node in adj_list[curr_node]:
+            if adj_node not in visited:
+                queue.append(adj_node)
+                spanning_tree.append((curr_node, adj_node))
+                visited.add(adj_node)
+    return spanning_tree
+adj_list = read_list(n ,m)
+spanning_tree = ostov(0, adj_list)
+for i in range(len(spanning_tree)):
+    print(*spanning_tree[i])
+
+
+
