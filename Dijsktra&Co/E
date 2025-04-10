@@ -1,0 +1,35 @@
+def read_matrix(n,m):
+    adj_matrix = [[float('inf') for i in range(n)] for i in range(n)]
+    for i in range(n):
+        adj_matrix[i][i] = 0
+    for _ in range(m):
+        u , v, w = map(int, input().split())
+        adj_matrix[u][v] = w
+        adj_matrix[v][u] = w
+    return adj_matrix
+        
+def FloydWarshall(adj_matrix):
+    n = len(adj_matrix)
+    for k in range(n):
+        for i in range(n):
+            for j in range(n):
+                adj_matrix[i][j] = min(adj_matrix[i][k] + adj_matrix[k][j], adj_matrix[i][j])
+    return adj_matrix
+
+s = list(map(int, input().split()))
+n, m = s[0:2]
+capitals = s[2:]
+areas = {i:None for i in range(n)}
+adj_matrix = read_matrix(n, m)
+for i in range(n):
+    cur = capitals[0]
+    for j in range(len(capitals)):
+        if adj_matrix[i][capitals[j]] <= adj_matrix[i][cur]:
+            cur = capitals[j]
+    areas[i] = cur
+for i in range(n):
+    if areas[i] == float('inf'):
+        print(-1)
+        continue
+    print(areas[i])
+        

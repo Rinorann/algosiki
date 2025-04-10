@@ -22,4 +22,14 @@ def FordBellman(edge_list, N, start_node):
     return dist, correct
 n, m, s = map(int, input().split())
 edge_list = read_edge(m)
-print(FordBellman(edge_list, n, s))
+dists, correct = FordBellman(edge_list, n, s)
+
+# Формируем результат
+result = []
+for i in range(n):
+    if not correct[i] or dists[i] == float('inf'):
+        result.append("UDF")
+    else:
+        result.append(str(dists[i]))
+print(*result)
+

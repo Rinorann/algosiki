@@ -1,7 +1,38 @@
-def FloydWarshall(adj_matrix):
-    n = len(adj_matrix)
-    for k in range(n):
-        for i in range(n):
-            for j in range(n):
-                adj_matrix[i][j] = max(adj_matrix[i][k] + adj_matrix[k][j], adj_matrix[i][j])
-    return adj_matrix
+def read_edge(m):
+    edge_list = []
+    for _ in range(m):
+        u, v, w = map(int, input().split())
+        edge_list.append((u, v, w))
+        edge_list.append((v, u, w))  # для неориентированного графа
+    return edge_list
+
+def FordBellman(edges, N, start):
+    dist = [float('inf')] * N
+    dist[start] = 0
+    
+    # Основные N-1 итераций
+    for _ in range(N-1):
+        updated = False
+        for u, v, w in edges:
+            if dist[u] + w < dist[v]:
+                dist[v] = dist[u] + w
+                updated = True
+        if not updated:  # ранний выход если нет изменений
+            break
+    
+    # Проверка на отрицательные циклы (не нужно для данной задачи)
+    return dist
+
+n, m = map(int, input().split())
+edges = read_edge(m)
+min_total = float('inf')
+capital = 0
+
+for city in range(n):
+    distances = FordBellman(edges, n, city)
+    total = sum(distances)
+    if total < min_total:
+        min_total = total
+        capital = city
+
+print(capital)

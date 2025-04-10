@@ -1,0 +1,40 @@
+import heapq
+
+def read_list(n, m):
+    adj_list = [[] for _ in range(n)]
+    for _ in range(m):
+        s, f, w = map(int, input().split())
+        adj_list[s].append((f, w))
+        adj_list[f].append((s, w)) 
+    return adj_list
+
+def even_dijkstra(adj_list, start_node, end_node):
+    n = len(adj_list)
+    dist = [[float('inf')] * n for _ in range(2)]
+    dist[0][start_node] = 0  
+    
+    # Куча: (расстояние, вершина, чётность)
+    heap = []
+    heapq.heappush(heap, (0, start_node, 0))
+    while heap:
+        cur_dist, node, parity = heapq.heappop(heap)
+        if node == end_node and parity == 0:
+            return cur_dist
+        if cur_dist > dist[parity][node]:
+            continue
+        for neigh, weight in adj_list[node]:
+            new_dist = cur_dist + weight
+            new_parity = 1 - parity
+            if new_dist < dist[new_parity][neigh]:
+                dist[new_parity][neigh] = new_dist
+                heapq.heappush(heap, (new_dist, neigh, new_parity))
+    return -1
+# Пример использования
+n, m = map(int, input().split())
+adj_list = read_list(n, m)
+k = int(input())
+for i in range(k):
+    start, end = map(int, input().split())
+    result = even_dijkstra(adj_list, start, end)
+    print(result)
+
