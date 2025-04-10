@@ -1,0 +1,31 @@
+def read_list(n, m):
+    adj_list = [[] for _ in range(n+1)]
+    for i in range(m):
+        u , v = map(int, input().split())
+        adj_list[u].append(v)
+        adj_list[v].append(u)
+    return adj_list
+def dfs(adj_list,start, capitals):
+    stack = [start]
+    visited = set()
+    while stack:
+        cur_node = stack.pop()
+        for neigh in adj_list[cur_node]:
+            if neigh not in visited and neigh not in capitals:
+                stack.append(neigh)
+        visited.add(cur_node)
+    return visited
+n, m = map(int, input().split())
+adj_list = read_list(n, m)
+k = int(input())
+capitals = list(map(int, input().split()))
+visited = set()
+kingdoms = {capital:set() for capital in capitals}
+for i in range(k):
+    capital = capitals.pop(0)
+    previsited = visited
+    visited = dfs(adj_list, capital, capitals)
+    kingdoms[capital] = visited - previsited
+    res = list(kingdoms[capital])
+    print(len(kingdoms[capital]))
+    print(*res)
