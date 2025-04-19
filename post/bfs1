@@ -1,0 +1,37 @@
+#задача на составление карты сапёра
+INF = 10**9
+ 
+n, m = map(int, input().split())
+grid = [[] for i in range(n)]
+ 
+for i in range(n):
+    inp = list(map(int, input().split()))
+    grid[i] = inp
+ 
+stack = []
+dist = [[INF] * m for i in range(n)]
+#проставляем нули где бомбы
+for i in range(n):
+    for j in range(m):
+        if grid[i][j]:
+            stack.append([i, j]) #отсюда пойдёт bfs
+            dist[i][j] = 0
+#проверка на даунизм
+def in_board(x, y):
+    return 0 <= x < n and 0 <= y < m
+while stack: #пошёл бфсик
+    new_stack = []
+    dx = [0, 0, 1, -1]
+    dy = [-1, 1, 0, 0]
+    for [x, y] in stack: #делаем для всех в стаке
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if in_board(nx, ny) and dist[nx][ny] > dist[x][y] + 1:
+                dist[nx][ny] = dist[x][y] + 1 #по итогу всех бфсиков от всех клеток в ячейка получаем кратчайшие расстояния.
+                new_stack.append([nx, ny])
+    stack = new_stack
+for i in range(n):
+    for j in range(m):
+        print(dist[i][j], end = ' ')
+    print()

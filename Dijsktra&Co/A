@@ -3,7 +3,7 @@ def read_list(n, m):
     for _ in range(m):
         s, f, w = map(int, input().split())
         adj_list[s].append((f, w))
-        adj_list[f].append((s, w))  # если граф неориентированный
+        adj_list[f].append((s, w)) 
     return adj_list
 def dijkstra(adj_list, start_node, end_node):
     dist = {i:float('inf') for i in range(len(adj_list))}

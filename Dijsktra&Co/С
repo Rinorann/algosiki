@@ -3,24 +3,21 @@ def read_edge(m):
     for _ in range(m):
         u, v, w = map(int, input().split())
         edge_list.append((u, v, w))
-        edge_list.append((v, u, w))  # для неориентированного графа
+        edge_list.append((v, u, w))  
     return edge_list
 
 def FordBellman(edges, N, start):
     dist = [float('inf')] * N
     dist[start] = 0
     
-    # Основные N-1 итераций
     for _ in range(N-1):
         updated = False
         for u, v, w in edges:
             if dist[u] + w < dist[v]:
                 dist[v] = dist[u] + w
                 updated = True
-        if not updated:  # ранний выход если нет изменений
+        if not updated:  
             break
-    
-    # Проверка на отрицательные циклы (не нужно для данной задачи)
     return dist
 
 n, m = map(int, input().split())

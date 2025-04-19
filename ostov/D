@@ -1,0 +1,31 @@
+
+def read_list(n, m):
+    adj_list = [[] for _ in range(n)]
+    for i in range(m):
+        u , v , w= map(int, input().split())
+        adj_list[u].append((v, w))
+        adj_list[v].append((u,w))
+    return adj_list
+def Prim(adj_list):
+    res = []
+    total = 0
+    visited = set()
+    visited.add(0)
+    edges = [(0, finish, weight) for finish, weight in adj_list[0]]
+    while len(visited) < len(adj_list):
+        edge = min(edges, key=lambda x: x[2])
+        print(edge)
+        start, dest, weight = edge    
+        edges.remove(edge)
+        if dest not in visited:
+            visited.add(dest)
+            edges += [(dest, finish, weight) for finish, weight in adj_list[dest]]
+            res.append((start, dest))
+            total += weight
+    return res, total
+n , m= map(int, input().split())
+adj_list = read_list(n, m)
+res, total = Prim(adj_list)
+print(total)
+for edge in res:
+    print(*edge)

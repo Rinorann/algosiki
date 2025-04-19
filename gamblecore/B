@@ -1,0 +1,8 @@
+def shprhr(n, k, piles):
+    total_xor = 0
+    for s in piles:
+        total_xor ^= s%(k+1)
+    return 'YES' if total_xor != 0 else 'NO'
+n, k = map(int, input().split())
+piles = list(map(int, input().split()))
+print(shprhr(n, k, piles))
