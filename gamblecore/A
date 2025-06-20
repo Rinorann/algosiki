@@ -1,0 +1,6 @@
+def winner(N):
+    if N % 3 == 0:
+        return 2
+    else:
+        return 1
+print(winner(int(input())))
